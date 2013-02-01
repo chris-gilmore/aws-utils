@@ -1,0 +1,4 @@
+#!/bin/bash
+
+NAME=${1:-*}
+ec2-describe-tags --show-empty-fields --filter "key=Name" --filter "value=$NAME" | awk -F'\t' '/^TAG/ {if ($2 == "instance") print $5}' | sort -u

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+NAME=${1:-*}
+ec2-describe-instances --show-empty-fields --filter "tag:Name=$NAME" | awk -F'\t' '/^INSTANCE/ {printf $4"\t"} /^TAG/ {if ($4 == "Name") print $5}'
